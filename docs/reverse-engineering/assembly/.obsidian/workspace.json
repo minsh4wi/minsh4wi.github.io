@@ -1,0 +1,211 @@
+{
+  "main": {
+    "id": "437f6d85f0cfbfb6",
+    "type": "split",
+    "children": [
+      {
+        "id": "ccb4905584d0a13a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e704404276da17b4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "bomb-lab.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "bomb-lab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "143d02d51bc0f033",
+    "type": "split",
+    "children": [
+      {
+        "id": "355c3ebfddf711f8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c06f8d04a4ba1d38",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "e2a07b581b704f69",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "35e4e028e5589f90",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "3b78e489e3d8f741",
+    "type": "split",
+    "children": [
+      {
+        "id": "e4317fe839e94676",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "70f82273722971ad",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "bomb-lab.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for bomb-lab"
+            }
+          },
+          {
+            "id": "49402d28577af15a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "bomb-lab.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from bomb-lab"
+            }
+          },
+          {
+            "id": "c0c9791e1dcdc86c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "4f617072e4d5778f",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "e6964d4126e43914",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "bomb-lab.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of bomb-lab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e704404276da17b4",
+  "lastOpenFiles": [
+    "data-structures/Attachments/Pasted image 20260708181433.png",
+    "data-structures/Attachments/Pasted image 20260708180621.png",
+    "data-structures/Attachments/Pasted image 20260708180151.png",
+    "data-structures/Attachments/Pasted image 20260708175013.png",
+    "data-structures/Attachments/Pasted image 20260708173037.png",
+    "data-structures/Attachments/Pasted image 20260708164415.png",
+    "data-structures/Attachments/Pasted image 20260708162257.png",
+    "data-structures/Attachments/Pasted image 20260708161521.png",
+    "data-structures/Attachments/Pasted image 20260708161138.png",
+    "data-structures/recursion-in-assembly.md",
+    "data-structures/linked-lists-in-assembly.md",
+    "data-structures/Attachments/Pasted image 20260709224637.png",
+    "data-structures/Attachments/Pasted image 20260709205207.png",
+    "data-structures/Linked Lists in Assembly (x64dbg).md",
+    "data-structures/Attachments",
+    "data-structures",
+    "recursion-in-assembly.md",
+    "recursion-in-assembly.md.md",
+    "Recursive Functions in Assembly (x64dbg).md",
+    "Data Structures in C and Assembly/Linked Lists in Assembly (x64dbg).md",
+    "Data Structures in C and Assembly/Attachments",
+    "Data Structures in C and Assembly"
+  ]
+}
