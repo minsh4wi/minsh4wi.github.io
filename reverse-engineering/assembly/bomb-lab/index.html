@@ -1,0 +1,1675 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Reverse Engineering, Malware Analysis, CTF Writeups, and Binary Research.">
+      
+      
+        <meta name="author" content="Mahmoud Sayed">
+      
+      
+        <link rel="canonical" href="https://minsh4wi.github.io/reverse-engineering/assembly/bomb-lab/">
+      
+      
+        <link rel="prev" href="../../..">
+      
+      
+        <link rel="next" href="../data-structures/recursion-in-assembly/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../material/minshawi.jpg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Bomb Lab - Minshawi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue-grey">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Minshawi" class="md-header__button md-logo" aria-label="Minshawi" data-md-component="logo">
+      
+  <img src="../../../material/minshawi.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Minshawi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bomb Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue-grey" aria-label="Dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue-grey" aria-label="Light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Minshawi" class="md-nav__button md-logo" aria-label="Minshawi" data-md-component="logo">
+      
+  <img src="../../../material/minshawi.jpg" alt="logo">
+
+    </a>
+    Minshawi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reverse Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Assembly
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bomb Lab
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bomb Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#phase_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_4
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="phase_4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#another-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Another solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="phase_5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#another-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Another solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_6
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="phase_6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structures
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structures
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-structures/recursion-in-assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion in Assembly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-structures/linked-lists-in-assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linked Lists in Assembly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Malware Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Malware Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1">
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practical Malware Analysis Labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Practical Malware Analysis Labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../malware-analysis/pma/lab-1.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../malware-analysis/pma/lab-3.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../malware-analysis/pma/lab-5.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTF Writeups
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CTF Writeups
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ctf/latest.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latest CTFs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#phase_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_4
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="phase_4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#another-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Another solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="phase_5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#another-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Another solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        phase_6
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="phase_6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Bomb Lab</h1>
+
+<h2 id="phase_1">phase_1</h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-05-22_21-19.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-05-22_21-19.png"></a></p>
+<p>answer is: I am just a renegade hockey mom.</p>
+<h2 id="phase_2">phase_2</h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-05-22_23-34.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-05-22_23-34.png"></a></p>
+<p>The program reads six integers.
+- The first number must be 1
+- Each subsequent number must be twice the previous one. The used equation: arr[i] = arr[i-1] * 2</p>
+<h2 id="phase_3">phase_3</h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-05-23_00-02.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-05-23_00-02.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-06-08_18-24.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-06-08_18-24.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260710000656.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260710000656.png"></a></p>
+<p>I think if we put another value in first element "any number equal or less than 5" it will do some math and return second number to be checked..
+try "-334 22" for example, anything...</p>
+<p>but, the program went to explode, this because the comparison uses <strong>unsigned</strong> values (<code>ja</code> instruction). Therefore, <code>-334</code> is interpreted as a very large unsigned integer (<code>0xFFFFFEB2</code>), making the comparison fail immediately.</p>
+<p>using "3 12" for example
+the second number must be  4294967170
+same number as first time.</p>
+<p>using first number 4
+the second number must be 0</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260710001311.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260710001311.png"></a></p>
+<h2 id="phase_4">phase_4</h2>
+<p>My notes while solving this phase</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[rbp+4] = first     [0, 14]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>[rbp+24] = second   = 10
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>func(first, 0, 14) == 10
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>---
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>[rbp+108] = arg2
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>[rbp+110] = arg3
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>[rbp+100] = arg1
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>[rbp+4] = cmp = ((arg3 - arg2) / 2) + arg2
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>if (cmp &lt; arg1):
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    return (cmp + func4(arg1, arg2, cmp-1))
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>if (cmp &gt; arg1):
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    return (cmp + func4(arg1, cmp+1, arg3))
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>if (cmp == arg1):
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    return cmp
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>15 =&gt; 7 =&gt; 3 =&gt; 5
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>6 + 5 + 3 + 7 = 21 = 0x15
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>7 + 3 = 10 = 0xa
+</code></pre></div>
+<h3 id="first-solution">First solution</h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708191038.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708191038.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708191249.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708191249.png"></a></p>
+<p>If we enter func4</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708195342.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708195342.png"></a></p>
+<p>If the value of midpoint is equal to the first argument</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708195810.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708195810.png"></a></p>
+<p>If the value of midpoint is less than the first argument</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708202943.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708202943.png"></a></p>
+<p>If the value of midpoint is more than the first argument</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203055.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203055.png"></a></p>
+<p>I entered "5 10" to trace the program and this is what I found:</p>
+<p>When reached ret instruction the value in eax is same as the input</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203458.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203458.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203531.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203531.png"></a></p>
+<p>Then it returns to the previous ret address which pushed on the stack</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203650.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203650.png"></a></p>
+<p>And adds to it the value of last midpoint</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/phase_4_test.gif" data-desc-position="bottom"><img alt="" src="../Attachments/phase_4_test.gif"></a></p>
+<p>So, we entered 5 it added to it : 7+ 3, which is 15, 0xF</p>
+<p>The function adds the sum of midpoints to your input.</p>
+<p>The used equation in the code:</p>
+<div class="language-c highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">cmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">arg3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">arg2</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">arg2</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">which</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">to</span><span class="o">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">(</span><span class="n">arg3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">arg2</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span>
+</code></pre></div>
+<p>first midpoint = (0 + 14) / 2 = 7
+second midpoint = (0 + 7) / 2 = 3
+third midpoint = (3 + 7) / 2 = 5
+now, we reached 5, so it returns 5 + 3 + 7 = 0xF</p>
+<p>To get the value 10, we need to enter 3, 7 + 3 = 10</p>
+<hr>
+<p>If you want to understand recursive functions more, 
+check my article on <a href="../data-structures/recursion-in-assembly/" target="_blank">Recursive Functions in Assembly</a>.</p>
+<hr>
+<h3 id="another-solution">Another solution</h3>
+<p>I also traced the program and wrote this python burte force script:</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">phase_4</span><span class="p">():</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">myInput</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">myInput</span> <span class="o">&lt;=</span> <span class="mi">14</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="n">x</span> <span class="o">=</span> <span class="n">func_4</span><span class="p">(</span><span class="n">myInput</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">10</span><span class="p">):</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"win , input = </span><span class="si">{</span><span class="n">myInput</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"fail , input = </span><span class="si">{</span><span class="n">myInput</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">func_4</span><span class="p">(</span><span class="n">myInput</span><span class="p">,</span> <span class="n">num2</span><span class="p">,</span> <span class="n">num3</span><span class="p">):</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">cmp</span> <span class="o">=</span> <span class="n">num2</span> <span class="o">+</span> <span class="p">((</span><span class="n">num3</span> <span class="o">-</span> <span class="n">num2</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># 7</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">cmp</span> <span class="o">&lt;=</span> <span class="n">myInput</span><span class="p">):</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">cmp</span> <span class="o">&gt;=</span> <span class="n">myInput</span><span class="p">):</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>            <span class="k">return</span> <span class="n">cmp</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">cmp</span> <span class="o">+</span> <span class="n">func_4</span><span class="p">(</span><span class="n">myInput</span><span class="p">,</span> <span class="n">cmp</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">num3</span><span class="p">))</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">cmp</span> <span class="o">+</span> <span class="n">func_4</span><span class="p">(</span><span class="n">myInput</span><span class="p">,</span> <span class="n">num2</span><span class="p">,</span> <span class="n">cmp</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">14</span><span class="p">):</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    <span class="n">myInput</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    <span class="n">phase_4</span><span class="p">()</span>
+</code></pre></div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705161037.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705161037.png"></a></p>
+<p>so, input is: 3 10</p>
+<h2 id="phase_5">phase_5</h2>
+<p>My notes while solving this phase:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[rbp+64] = first    &lt;= 15
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[rbp+84] = second
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>[rbp+44] = first
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>[rbp+4] = 0 = index
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>[rbp+24] = 0
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>if (first == 15):
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    out
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>else:
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    i+1
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    first = arr[first]
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    [rbp+24] = [rbp+24] + arr[first]
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>looping for 16 round
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>second = [rbp+24]
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>arr[16] = {10, 2, 14, 7, 8, 12, 15, 11, 0, 4, 1, 13, 3, 9, 6, 5}
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>15
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>6
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>14
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>2
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>1
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>10
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>0
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>8
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>4
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>9
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>13
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>11
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>7
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>3
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>12
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>5
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>5 115
+</code></pre></div>
+<h3 id="first-solution_1">First solution</h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709231429.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709231429.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709232335.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709232335.png"></a></p>
+<p>so, we need to loop for 15 time, and get 15 at last loop
+we have the equation:
+    first = arr[first]</p>
+<p>At the address 00007FF73207F1D0 on the stack, the array found, if we converted the view to unsigned long:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709232636.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709232636.png"></a></p>
+<p>To loop for 15 time and the last loop contains 15, we need to start from the back:
+15 
+6
+14
+2
+1
+10
+0
+8
+4
+9
+13
+11
+7
+3
+12
+5</p>
+<p>So the first number is: 5
+We can put a breakpoint at the address 00007FF732072530 to get the value of the second number, which is stored in [rbp+24]
+or you can add these inputs and calculating it by yourself, but don't add 5, because the value of [rbp+24] at the first is 0, and start to add from the second element, the answer will be 115</p>
+<h3 id="another-solution_1">Another solution</h3>
+<p>Here again I traced the program and wrote this python script</p>
+<div class="language-python highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">num1</span> <span class="o">=</span> <span class="n">i</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">n_44</span> <span class="o">=</span> <span class="n">num1</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">n_4</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">n_24</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="k">while</span> <span class="p">(</span><span class="n">num1</span> <span class="o">!=</span> <span class="mi">15</span><span class="p">):</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="n">n_4</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="n">num1</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">num1</span><span class="p">]</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">n_24</span> <span class="o">=</span> <span class="n">n_24</span> <span class="o">+</span> <span class="n">num1</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">n_4</span> <span class="o">==</span> <span class="mi">15</span><span class="p">):</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"num1 = </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"num2 = </span><span class="si">{</span><span class="n">n_24</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"fail"</span><span class="p">)</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="c1"># After anding first num is in range 0 to 0xF</span>
+</code></pre></div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705161419.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705161419.png"></a></p>
+<p>so, input is: 5 115</p>
+<h2 id="phase_6">phase_6</h2>
+<p>My notes while solving this phase:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>node1{
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    530,
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    1,
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    00007FF76F13F040
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>}
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>[rbp+8] = address of node1
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>[rbp+48 + rax*4] = my input
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>elements =&gt; [1, 6] and different in values
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>=====
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>[rbp+28] = address of node1
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>[rbp+78 + rax*8] = address of node1
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>[rbp+78 + rax*8] = address of node2
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>so array of address to linked list at address [rbp+78]
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>====
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>[rbp+rax+78] = [rbp+8] = [rbp+28] = array of nodes
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>[r]
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>[rbp+C4] = loop_index + 1
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>first address of node1 is 0
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>compares first element "dword" in previous node with current node
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>previous &gt;= current
+</code></pre></div>
+<p>In this phase, the program accepts six numbers as input.</p>
+<p>We can analyze this phase in 4 blocks</p>
+<h3 id="block-1">Block 1</h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705204546.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705204546.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705163104.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705163104.png"></a></p>
+<h3 id="block-2">Block 2</h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705211745.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705211745.png"></a></p>
+<p>trying with the second input which is 2 in my case, to understand what this block do</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705212906.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705212906.png"></a></p>
+<p>when trying with the other inputs which is 3 4 5 6 in my case, to understand what this block do more...
+it added the address of node3 to the array</p>
+<p>After this block finishes, the contents of the array at address [rbp+78] is: 
+node1, node2, node3, node4, node5, node6</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705213733.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705213733.png"></a></p>
+<h3 id="block-3">Block 3</h3>
+<p>before looping:
+[rbp+8] = [rbp+28] = [rbp+78] =&gt; the array of nodes</p>
+<p>After tracing this block, [rcx+8]  and rax have the address of the next node from rcx
+rcx have the address of current address</p>
+<p>maybe the useful thing from this block is to see the value of [rbp+28] after this block finishes, because it used in the last block</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705223105.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705223105.png"></a></p>
+<hr>
+<p>If you want to understand linked lists more, 
+check my article on <a href="../data-structures/linked-lists-in-assembly/" target="_blank">Linked Lists in Assembly</a>.</p>
+<hr>
+<h3 id="block-4">Block 4</h3>
+<p>before looping:
+[rbp+8] is address of node1
+and now [rbp+28] have the address of node1</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705225825.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705225825.png"></a></p>
+<p>This block compares the first dword in current block with the next block, if it greater or equal the bomb will not explode.</p>
+<p>Now, we know that the nodes are arranged in an array with the number we typed to the program.</p>
+<p>So, we first need to know all the first dword value for all nodes.
+then put them in a way that first dword for the typed input is greater or equal to the next.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705230729.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705230729.png"></a></p>
+<p>If we converted them to unsigned long (32-bit)</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705230853.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705230853.png"></a></p>
+<p>node5 &gt; node4 &gt; node3 &gt; node1 &gt; node6 &gt; node2</p>
+<p>so, our input is:
+5 4 3 1 6 2</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../data-structures/recursion-in-assembly/" class="md-footer__link md-footer__link--next" aria-label="Next: Recursion in Assembly">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Recursion in Assembly
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/minsh4wi" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/minshawi/" target="_blank" rel="noopener" title="LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://x.com/minsh4wi" target="_blank" rel="noopener" title="X (Twitter)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
