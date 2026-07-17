@@ -66,8 +66,6 @@ nav:
   - Malware Analysis:
       - Practical Malware Analysis Labs:
           - Lab 1: malware-analysis/pma/lab-1.md
-          - Lab 3: malware-analysis/pma/lab-3.md
-          - Lab 5: malware-analysis/pma/lab-5.md
 
   - CTF Writeups:
       - Latest CTFs: ctf/latest.md

@@ -1,0 +1,78 @@
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #000000;
+  --md-default-fg-color: #ffffff;
+}
+
+.md-footer {
+  background-color: var(--md-primary-color) !important;
+}
+
+.md-footer-meta {
+  background-color: transparent !important;
+  padding: 0.4rem 0.8rem !important;
+}
+
+.md-footer-meta__inner {
+  gap: 0.5rem !important;
+}
+
+.md-copyright {
+  font-size: 0.7rem !important;
+  opacity: 0.6;
+  margin: 0 !important;
+}
+
+.md-copyright a {
+  color: inherit !important;
+}
+
+.md-social {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.md-social__link {
+  font-size: 0.8rem !important;
+}
+
+.md-typeset a {
+  text-decoration: none !important;
+}
+.md-typeset a:hover {
+  text-decoration: underline !important;
+}
+
+.md-header__button, 
+.md-header__button svg,
+.md-social__link, 
+.md-social__link svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  transition: transform 0.3s ease, fill 0.3s ease !important;
+}
+
+.md-header__button:hover svg,
+.md-social__link:hover svg {
+  transform: scale(1.2) !important;
+  fill: #4fc3f7 !important;
+}
+
+.md-header__button.md-logo svg {
+  display: none !important;
+}
+
+.md-header__button.md-logo {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.md-header__button.md-logo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  cursor: pointer;
+  z-index: 99;
+}

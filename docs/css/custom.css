@@ -76,3 +76,12 @@
   cursor: pointer;
   z-index: 99;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
