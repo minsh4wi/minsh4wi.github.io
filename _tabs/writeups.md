@@ -6,16 +6,6 @@ order: 2
 
 # CTF Writeups
 
-## FLARE-On 13 (2026)
-
-- [1- FLAreCAPTCHA]({% post_url 2026-10-24-1-flarecaptcha %})
-- [2- GhostStream]({% post_url 2026-10-24-2-ghoststream %})
-- [3- FlareOn13.doc]({% post_url 2026-10-24-3-flareon13-doc %})
-- [4- ToxicMiner]({% post_url 2026-10-24-4-toxicminer %})
-- [5- catthief]({% post_url 2026-10-24-5-catthief %})
-- [6- Threat Invaders]({% post_url 2026-10-24-6-threat-invaders %})
-
----
 
 # Malware Analysis
 
