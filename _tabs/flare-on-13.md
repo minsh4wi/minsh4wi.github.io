@@ -6,7 +6,7 @@ order: 1
 
 ![Flare-On 13 Results](/assets/img/FlareOn13.png){: .normal w="700" }
 
-Alhamdulillah, I solved 6 challenges out of 9 challenges in Flare-On 13, I learned a lot of interesting techniques and approaches along the way.
+Alhamdulillah, I solved 6 challenges out of 9 challenges in Flare-On 13, I learned a lot of interesting techniques and approaches along the way
 
 ## Challenge Write-ups
 
