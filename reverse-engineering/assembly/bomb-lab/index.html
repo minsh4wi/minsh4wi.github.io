@@ -1029,15 +1029,64 @@
   
   
   
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flare-On 13 (2026)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Flare-On 13 (2026)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../../ctf/latest.md" class="md-nav__link">
+      <a href="../../../ctf/flare-on-13/1-FLAreCAPTCHA/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Latest CTFs
+    1 - FLAreCAPTCHA
   
 
     
@@ -1046,6 +1095,154 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ctf/flare-on-13/2-GhostStream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 - GhostStream
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ctf/flare-on-13/3-flareon13_doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 - FlareOn13.doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ctf/flare-on-13/4-ToxicMiner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 - ToxicMiner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ctf/flare-on-13/5-catthief/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 - catthief
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ctf/flare-on-13/6-ThreatInvaders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 - Threat Invaders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1274,17 +1471,17 @@
   <h1>Bomb Lab</h1>
 
 <h2 id="phase_1">phase_1</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-05-22_21-19.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-05-22_21-19.png"></a></p>
+<p></p>
 <p>answer is: I am just a renegade hockey mom.</p>
 <h2 id="phase_2">phase_2</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-05-22_23-34.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-05-22_23-34.png"></a></p>
+<p></p>
 <p>The program reads six integers.
 - The first number must be 1
 - Each subsequent number must be twice the previous one. The used equation: arr[i] = arr[i-1] * 2</p>
 <h2 id="phase_3">phase_3</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-05-23_00-02.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-05-23_00-02.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/2026-06-08_18-24.png" data-desc-position="bottom"><img alt="" src="../Attachments/2026-06-08_18-24.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260710000656.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260710000656.png"></a></p>
+<p></p>
+<p></p>
+<p></p>
 <p>I think if we put another value in first element "any number equal or less than 5" it will do some math and return second number to be checked..
 try "-334 22" for example, anything...</p>
 <p>but, the program went to explode, this because the comparison uses <strong>unsigned</strong> values (<code>ja</code> instruction). Therefore, <code>-334</code> is interpreted as a very large unsigned integer (<code>0xFFFFFEB2</code>), making the comparison fail immediately.</p>
@@ -1293,7 +1490,7 @@ the second number must be  4294967170
 same number as first time.</p>
 <p>using first number 4
 the second number must be 0</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260710001311.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260710001311.png"></a></p>
+<p></p>
 <h2 id="phase_4">phase_4</h2>
 <p>My notes while solving this phase</p>
 <div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[rbp+4] = first     [0, 14]
@@ -1325,24 +1522,24 @@ the second number must be 0</p>
 <a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>7 + 3 = 10 = 0xa
 </code></pre></div>
 <h3 id="first-solution">First solution</h3>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708191038.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708191038.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708191249.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708191249.png"></a></p>
+<p></p>
+<p></p>
 <p>If we enter func4</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708195342.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708195342.png"></a></p>
+<p></p>
 <p>If the value of midpoint is equal to the first argument</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708195810.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708195810.png"></a></p>
+<p></p>
 <p>If the value of midpoint is less than the first argument</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708202943.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708202943.png"></a></p>
+<p></p>
 <p>If the value of midpoint is more than the first argument</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203055.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203055.png"></a></p>
+<p></p>
 <p>I entered "5 10" to trace the program and this is what I found:</p>
 <p>When reached ret instruction the value in eax is same as the input</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203458.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203458.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203531.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203531.png"></a></p>
+<p></p>
+<p></p>
 <p>Then it returns to the previous ret address which pushed on the stack</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708203650.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708203650.png"></a></p>
+<p></p>
 <p>And adds to it the value of last midpoint</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/phase_4_test.gif" data-desc-position="bottom"><img alt="" src="../Attachments/phase_4_test.gif"></a></p>
+<p></p>
 <p>So, we entered 5 it added to it : 7+ 3, which is 15, 0xF</p>
 <p>The function adds the sum of midpoints to your input.</p>
 <p>The used equation in the code:</p>
@@ -1388,7 +1585,7 @@ check my article on <a href="../data-structures/recursion-in-assembly/" target="
 <a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    <span class="n">myInput</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
 <a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    <span class="n">phase_4</span><span class="p">()</span>
 </code></pre></div>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705161037.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705161037.png"></a></p>
+<p></p>
 <p>so, input is: 3 10</p>
 <h2 id="phase_5">phase_5</h2>
 <p>My notes while solving this phase:</p>
@@ -1437,13 +1634,13 @@ check my article on <a href="../data-structures/recursion-in-assembly/" target="
 <a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>5 115
 </code></pre></div>
 <h3 id="first-solution_1">First solution</h3>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709231429.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709231429.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709232335.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709232335.png"></a></p>
+<p></p>
+<p></p>
 <p>so, we need to loop for 15 time, and get 15 at last loop
 we have the equation:
     first = arr[first]</p>
 <p>At the address 00007FF73207F1D0 on the stack, the array found, if we converted the view to unsigned long:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709232636.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709232636.png"></a></p>
+<p></p>
 <p>To loop for 15 time and the last loop contains 15, we need to start from the back:
 15 
 6
@@ -1487,7 +1684,7 @@ or you can add these inputs and calculating it by yourself, but don't add 5, bec
 <a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
 <a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="c1"># After anding first num is in range 0 to 0xF</span>
 </code></pre></div>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705161419.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705161419.png"></a></p>
+<p></p>
 <p>so, input is: 5 115</p>
 <h2 id="phase_6">phase_6</h2>
 <p>My notes while solving this phase:</p>
@@ -1530,24 +1727,24 @@ or you can add these inputs and calculating it by yourself, but don't add 5, bec
 <p>In this phase, the program accepts six numbers as input.</p>
 <p>We can analyze this phase in 4 blocks</p>
 <h3 id="block-1">Block 1</h3>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705204546.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705204546.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705163104.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705163104.png"></a></p>
+<p></p>
+<p></p>
 <h3 id="block-2">Block 2</h3>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705211745.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705211745.png"></a></p>
+<p></p>
 <p>trying with the second input which is 2 in my case, to understand what this block do</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705212906.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705212906.png"></a></p>
+<p></p>
 <p>when trying with the other inputs which is 3 4 5 6 in my case, to understand what this block do more...
 it added the address of node3 to the array</p>
 <p>After this block finishes, the contents of the array at address [rbp+78] is: 
 node1, node2, node3, node4, node5, node6</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705213733.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705213733.png"></a></p>
+<p></p>
 <h3 id="block-3">Block 3</h3>
 <p>before looping:
 [rbp+8] = [rbp+28] = [rbp+78] =&gt; the array of nodes</p>
 <p>After tracing this block, [rcx+8]  and rax have the address of the next node from rcx
 rcx have the address of current address</p>
 <p>maybe the useful thing from this block is to see the value of [rbp+28] after this block finishes, because it used in the last block</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705223105.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705223105.png"></a></p>
+<p></p>
 <hr>
 <p>If you want to understand linked lists more, 
 check my article on <a href="../data-structures/linked-lists-in-assembly/" target="_blank">Linked Lists in Assembly</a>.</p>
@@ -1556,14 +1753,14 @@ check my article on <a href="../data-structures/linked-lists-in-assembly/" targe
 <p>before looping:
 [rbp+8] is address of node1
 and now [rbp+28] have the address of node1</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705225825.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705225825.png"></a></p>
+<p></p>
 <p>This block compares the first dword in current block with the next block, if it greater or equal the bomb will not explode.</p>
 <p>Now, we know that the nodes are arranged in an array with the number we typed to the program.</p>
 <p>So, we first need to know all the first dword value for all nodes.
 then put them in a way that first dword for the typed input is greater or equal to the next.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705230729.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705230729.png"></a></p>
+<p></p>
 <p>If we converted them to unsigned long (32-bit)</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260705230853.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260705230853.png"></a></p>
+<p></p>
 <p>node5 &gt; node4 &gt; node3 &gt; node1 &gt; node6 &gt; node2</p>
 <p>so, our input is:
 5 4 3 1 6 2</p>

@@ -2,34 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://minsh4wi.github.io/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
+    </url>
+    <url>
+         <loc>https://minsh4wi.github.io/ctf/flare-on-13/1-FLAreCAPTCHA/</loc>
+         <lastmod>2026-10-24</lastmod>
+    </url>
+    <url>
+         <loc>https://minsh4wi.github.io/ctf/flare-on-13/2-GhostStream/</loc>
+         <lastmod>2026-10-24</lastmod>
+    </url>
+    <url>
+         <loc>https://minsh4wi.github.io/ctf/flare-on-13/3-flareon13_doc/</loc>
+         <lastmod>2026-10-24</lastmod>
+    </url>
+    <url>
+         <loc>https://minsh4wi.github.io/ctf/flare-on-13/4-ToxicMiner/</loc>
+         <lastmod>2026-10-24</lastmod>
+    </url>
+    <url>
+         <loc>https://minsh4wi.github.io/ctf/flare-on-13/5-catthief/</loc>
+         <lastmod>2026-10-24</lastmod>
+    </url>
+    <url>
+         <loc>https://minsh4wi.github.io/ctf/flare-on-13/6-ThreatInvaders/</loc>
+         <lastmod>2026-10-24</lastmod>
     </url>
     <url>
          <loc>https://minsh4wi.github.io/malware-analysis/pma/lab-1/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
     </url>
     <url>
          <loc>https://minsh4wi.github.io/malware-analysis/pma/lab-5/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
     </url>
     <url>
          <loc>https://minsh4wi.github.io/malware-analysis/pma/lab-6/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
     </url>
     <url>
          <loc>https://minsh4wi.github.io/malware-analysis/pma/lab-7/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
     </url>
     <url>
          <loc>https://minsh4wi.github.io/reverse-engineering/assembly/bomb-lab/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
     </url>
     <url>
          <loc>https://minsh4wi.github.io/reverse-engineering/assembly/data-structures/linked-lists-in-assembly/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
     </url>
     <url>
          <loc>https://minsh4wi.github.io/reverse-engineering/assembly/data-structures/recursion-in-assembly/</loc>
-         <lastmod>2026-08-04</lastmod>
+         <lastmod>2026-10-24</lastmod>
     </url>
 </urlset>

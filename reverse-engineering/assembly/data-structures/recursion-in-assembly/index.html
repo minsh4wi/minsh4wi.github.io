@@ -885,15 +885,64 @@
   
   
   
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flare-On 13 (2026)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Flare-On 13 (2026)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../../../ctf/latest.md" class="md-nav__link">
+      <a href="../../../../ctf/flare-on-13/1-FLAreCAPTCHA/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Latest CTFs
+    1 - FLAreCAPTCHA
   
 
     
@@ -902,6 +951,154 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/2-GhostStream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 - GhostStream
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/3-flareon13_doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 - FlareOn13.doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/4-ToxicMiner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 - ToxicMiner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/5-catthief/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 - catthief
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/6-ThreatInvaders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 - Threat Invaders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1000,16 +1197,16 @@
 <a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">}</span>
 </code></pre></div>
 <p>The function prints the current value of n, decrements it by one, and recursively calls itself until n becomes zero. Since the function's return type is void, it does not return a value to its caller.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708161138.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708161138.png"></a></p>
+<p></p>
 <p>The main function calls the func and sends to it the value 3</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708161521.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708161521.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708162257.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708162257.png"></a></p>
+<p></p>
+<p></p>
 <p>after the call instruction, the caller does not use the value in eax. Although eax may contain a value left by previous instructions or function calls, the caller ignores it because a void function does not return a meaningful value.</p>
 <p>When a function calls another function, the CPU pushes the return address onto the stack and creates a new stack frame for the callee.</p>
 <p>The same behavior occurs when a function calls itself recursively. Every recursive call creates its own independent stack frame and stores its own return address on the stack.</p>
 <p>Once the base case is reached, the recursive calls begin to return. Each ret instruction pops the corresponding return address from the stack and transfers execution back to the instruction immediately following the call instruction in the previous stack frame. This process continues until all recursive calls have returned.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708164415.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708164415.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708173037.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708173037.png"></a></p>
+<p></p>
+<p></p>
 <h2 id="recursive-functions-with-a-return-value">Recursive Functions With a Return Value</h2>
 <div class="language-c highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
@@ -1029,13 +1226,13 @@
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
 </code></pre></div>
 <p>The function recursively calls itself until it reaches the base case (n == 0), where it returns 1.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708175013.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708175013.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708180151.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708180151.png"></a></p>
+<p></p>
+<p></p>
 <p>Once the base case is reached, the recursive calls stop. The program then begins stack unwinding. Each ret instruction returns execution to the instruction immediately following the corresponding call.</p>
 <p>In this example, execution returns to address 0x00007FF613F218CE. At this point, the caller uses the return value from the previous recursive call to compute its own return value. This process repeats until all recursive calls have returned.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708180621.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708180621.png"></a></p>
+<p></p>
 <p>The return value of each recursive call is stored in rax. The caller then uses this value to perform the multiplication before returning to its caller.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260708181433.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260708181433.png"></a></p>
+<p></p>
 
 
 

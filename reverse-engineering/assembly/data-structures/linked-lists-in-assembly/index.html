@@ -896,15 +896,64 @@
   
   
   
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flare-On 13 (2026)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Flare-On 13 (2026)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../../../ctf/latest.md" class="md-nav__link">
+      <a href="../../../../ctf/flare-on-13/1-FLAreCAPTCHA/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Latest CTFs
+    1 - FLAreCAPTCHA
   
 
     
@@ -913,6 +962,154 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/2-GhostStream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 - GhostStream
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/3-flareon13_doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 - FlareOn13.doc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/4-ToxicMiner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 - ToxicMiner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/5-catthief/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 - catthief
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ctf/flare-on-13/6-ThreatInvaders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 - Threat Invaders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1025,10 +1222,10 @@
 <p>One small clue is that the second member begins at <code>[rbp+10h]</code> instead of <code>[rbp+0Ch]</code>. This is because the compiler inserted four bytes of padding after the <code>int</code> member so that the pointer is aligned on an 8-byte boundary.</p>
 <p>However, this alone is <strong>not enough</strong> to conclude that the object is a linked list—or even a structure. From the assembly alone, we only know that there is a 4-byte value followed by an 8-byte value.</p>
 <p>We can't identify a linked list from a single instruction or a single object. Instead, we recognize the overall pattern created by pointer dereferences, traversal loops, and <code>NULL</code> termination. We will see these patterns in the following examples.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709195835.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709195835.png"></a></p>
+<p></p>
 <p>When the program is compiled with debug information (PDB), ida can recover the structure definition and display the member names and offsets.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709202918.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709202918.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709203056.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709203056.png"></a></p>
+<p></p>
+<p></p>
 <h2 id="analyzing-multiple-nodes">Analyzing Multiple Nodes</h2>
 <div class="language-c highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
@@ -1069,9 +1266,9 @@
 <a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="p">}</span>
 </code></pre></div>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709205207.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709205207.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709224052.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709224052.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Attachments/Pasted%20image%2020260709224637.png" data-desc-position="bottom"><img alt="" src="../Attachments/Pasted%20image%2020260709224637.png"></a></p>
+<p></p>
+<p></p>
+<p></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>You can recognize the linked lists, if the code meets:
 - Accessing the first field (<code>[reg]</code>).
