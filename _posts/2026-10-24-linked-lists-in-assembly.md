@@ -1,29 +1,22 @@
 ---
-title: "Linked Lists in Assembly"
+title: "Linked Lists in Assembly with x64dbg"
 date: 2026-10-24 17:06:00 +0300
 categories: [Reverse Engineering, Data Structures]
-tags: [reverse-engineering, assembly]
-description: "Understanding linked lists in assembly."
+tags: [reverse-engineering, assembly, data-structures, x64dbg]
+description: "Notes and examples for recognizing and analyzing linked lists in assembly with x64dbg."
 ---
-
-categories: [Reverse Engineering, Data Structures]
-tags: [reverse-engineering, assembly, data-structures]
-
-# Linked Lists in Assembly (x64dbg)
 
 ## Analyzing a Single Node
 
 ```c
 #include <stdio.h>
 
-typedef struct Node
-{
+typedef struct Node {
     int value;
     struct Node *next;
 } Node;
 
-int main()
-{
+int main(void) {
     Node node;
 
     node.value = 10;
@@ -31,42 +24,47 @@ int main()
 
     return 0;
 }
-
 ```
 
-The assembly does not clearly indicate that a structure is being used. The compiler simply writes values to memory, just as it would for ordinary local variables.
+The assembly does not necessarily make the structure obvious. The compiler simply writes values to memory, much as it would for ordinary local variables.
 
-One small clue is that the second member begins at `[rbp+10h]` instead of `[rbp+0Ch]`. This is because the compiler inserted four bytes of padding after the `int` member so that the pointer is aligned on an 8-byte boundary.
+One clue is that the second member may appear at `[rbp+10h]` instead of `[rbp+0Ch]`. The compiler inserts four bytes of padding after the `int` member so the 8-byte pointer is aligned on an 8-byte boundary. These offsets depend on how the compiler lays out the local variable in the stack frame.
 
-However, this alone is **not enough** to conclude that the object is a linked list—or even a structure. From the assembly alone, we only know that there is a 4-byte value followed by an 8-byte value.
+However, this alone is **not enough** to conclude that the object is a linked list—or even a structure. From the assembly alone, we may only be able to infer that a 4-byte value is followed by an 8-byte value.
 
-We can't identify a linked list from a single instruction or a single object. Instead, we recognize the overall pattern created by pointer dereferences, traversal loops, and `NULL` termination. We will see these patterns in the following examples.
+> **Note:** A linked list is usually identified from a broader pattern: pointer dereferences, traversal logic, and termination when a pointer becomes `NULL`—not from one instruction or one object.
+{: .prompt-info }
 
-![](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709195835.png)
+![Single node in x64dbg](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709195835.png)
 
-When the program is compiled with debug information (PDB), ida can recover the structure definition and display the member names and offsets.
+When suitable debugging symbols or type information (such as a PDB) are available, IDA may be able to recover the structure definition and display member names and offsets.
 
-![](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709202918.png)
+![Node structure in IDA](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709202918.png)
 
-![](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709203056.png)
+![Node structure details in IDA](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709203056.png)
+
 ## Analyzing Multiple Nodes
 
 ```c
-
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node
-{
+typedef struct Node {
     int value;
     struct Node *next;
 } Node;
 
-int main()
-{
+int main(void) {
     Node *head = malloc(sizeof(Node));
     Node *second = malloc(sizeof(Node));
     Node *third = malloc(sizeof(Node));
+
+    if (head == NULL || second == NULL || third == NULL) {
+        free(head);
+        free(second);
+        free(third);
+        return 1;
+    }
 
     head->value = 10;
     head->next = second;
@@ -79,8 +77,7 @@ int main()
 
     Node *cur = head;
 
-    while (cur)
-    {
+    while (cur != NULL) {
         printf("%d\n", cur->value);
         cur = cur->next;
     }
@@ -91,20 +88,21 @@ int main()
 
     return 0;
 }
-
 ```
 
-![](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709205207.png)
+![Multiple nodes in the debugger](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709205207.png)
 
-![](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709224052.png)
+![Traversing the linked list](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709224052.png)
 
-![](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709224637.png)
-
+![Linked-list traversal in assembly](/assets/img/reverse-engineering/data-structures/Pasted%20image%2020260709224637.png)
 
 ## Conclusion
 
-You can recognize the linked lists, if the code meets:
-- Accessing the first field (`[reg]`).
-- Accessing the pointer field (`[reg+8]`).
-- Repeated pointer dereference.
-- A loop ending when the pointer becomes `NULL`.
+Typical patterns that may indicate linked-list traversal include:
+
+- Reading a node's first field, for example, `[reg]`.
+- Reading a pointer field, for example, `[reg+8]` on a typical x64 layout where the pointer follows a 4-byte integer and 4 bytes of padding.
+- Repeatedly dereferencing the next-node pointer.
+- A loop that ends when the pointer becomes `NULL`.
+
+These clues should be considered together with the surrounding control flow and memory accesses.
